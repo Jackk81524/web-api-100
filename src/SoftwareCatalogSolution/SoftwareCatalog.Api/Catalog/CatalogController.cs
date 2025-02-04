@@ -16,6 +16,13 @@ public class CatalogController(IDocumentSession session) : ControllerBase
         }
         else
         {
+            var response = new CatalogItemResponseDetailsModel
+            {
+                Id = savedEntity.Id,
+                License = savedEntity.License,
+                Name = savedEntity.Name,
+                Vendor = savedEntity.Vendor
+            };
             return Ok(savedEntity);
         }
     }
