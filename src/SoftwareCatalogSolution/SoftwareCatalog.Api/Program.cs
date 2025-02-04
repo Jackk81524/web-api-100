@@ -7,6 +7,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Above this line is configuring the "internals" of our API Project.
+
+// This is saying use the "System" time provider, anywhere we need an instance of the TimeProvider
+builder.Services.AddSingleton<TimeProvider>((_) => TimeProvider.System);
+
 var app = builder.Build(); // THE LINE IN THE SAND
 // Everything after this line is configuring how the web server handles incoming requests/responses
 
