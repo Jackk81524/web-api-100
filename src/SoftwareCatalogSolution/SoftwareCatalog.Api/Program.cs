@@ -1,3 +1,5 @@
+using Marten;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +12,13 @@ builder.Services.AddSwaggerGen();
 
 // This is saying use the "System" time provider, anywhere we need an instance of the TimeProvider
 builder.Services.AddSingleton<TimeProvider>((_) => TimeProvider.System);
+
+var connectionString = builder.Configuration.GetConnectionString("database") ?? throw new Exception("You need a conneciton String");
+
+builder.Services.AddMarten(config =>
+{
+    config.Connection(connectionString);
+}).UseLightweightSessions();
 
 var app = builder.Build(); // THE LINE IN THE SAND
 // Everything after this line is configuring how the web server handles incoming requests/responses

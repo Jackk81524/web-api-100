@@ -5,7 +5,7 @@ POST http://localhost:1337/vendors/microsoft/opensource
 Content-Type: application/json
  
 {
-  "name": "Visual Studio Code"
+  "name": "Visual Studio  2022"
 }
  
  
