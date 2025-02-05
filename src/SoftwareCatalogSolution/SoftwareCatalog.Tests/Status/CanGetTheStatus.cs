@@ -24,6 +24,11 @@ public class CanGetTheStatus
             {
                 services.AddSingleton<TimeProvider>(_ => fakeTimeProvider);
             });
+            //config.ConfigureAppConfiguration(ep =>
+            //{
+            //    // the hosting application // rarely used
+            //});
+
         });
 
         var response = await host.Scenario(api =>
