@@ -8,22 +8,16 @@ public class GettingCatalogItemDetails : ControllerBase
     [HttpGet("/catalog/{id:guid}")]
     public async Task<ActionResult> GetItemById(Guid id, [FromServices] IDocumentSession session)
     {
-        var savedEntity = await session.Query<CatalogItemEntity>().Where(c => c.Id == id).SingleOrDefaultAsync();
+        var item = await session.Query<CatalogItemEntity>()
+            .Where(c => c.Id == id)
+            .ProjectToDetailsModel()
+            .SingleOrDefaultAsync();
 
-        if (savedEntity == null)
+
+        return item switch
         {
-            return NotFound();
-        }
-        else
-        {
-            var response = new CatalogItemResponseDetailsModel
-            {
-                Id = savedEntity.Id,
-                Licence = savedEntity.Licence,
-                Name = savedEntity.Name,
-                Vendor = savedEntity.Vendor
-            };
-            return Ok(savedEntity);
-        }
+            null => NotFound(),
+            _ => Ok(item),
+        };
     }
 }

@@ -1,9 +1,21 @@
-﻿namespace SoftwareCatalog.Api.Catalog;
+﻿using FluentValidation;
+
+namespace SoftwareCatalog.Api.Catalog;
 
 public record CatalogItemRequestModel
 {
     public string Name { get; set; } = string.Empty;
 
+}
+
+public class CatalogItemRequestModelValidator : AbstractValidator<CatalogItemRequestModel>
+{
+    public CatalogItemRequestModelValidator()
+    {
+        RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.Name).MinimumLength(3);
+        RuleFor(x => x.Name).MaximumLength(100);
+    }
 }
 
 

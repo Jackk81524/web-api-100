@@ -1,4 +1,6 @@
+using FluentValidation;
 using Marten;
+using SoftwareCatalog.Api.Catalog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // This is saying use the "System" time provider, anywhere we need an instance of the TimeProvider
 
-
+builder.Services.AddScoped<IValidator<CatalogItemRequestModel>, CatalogItemRequestModelValidator>();
 builder.Services.AddSingleton<TimeProvider>((_) => TimeProvider.System);
 
 var connectionString = builder.Configuration.GetConnectionString("database")
