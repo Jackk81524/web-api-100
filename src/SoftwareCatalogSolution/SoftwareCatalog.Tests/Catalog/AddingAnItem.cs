@@ -1,7 +1,7 @@
 ﻿using SoftwareCatalog.Api.Catalog;
 
 namespace SoftwareCatalog.Tests.Catalog;
-public class AddingAnItem(CatalogSystemTestFixture fixture) : IClassFixture<CatalogSystemTestFixture>
+public class AddingAnItem(SystemTestFixture fixture) : IClassFixture<SystemTestFixture>
 {
 
     [Theory]
@@ -11,9 +11,6 @@ public class AddingAnItem(CatalogSystemTestFixture fixture) : IClassFixture<Cata
     [InlineData("Destiny 2", "bungie", CatalogItemLicenceTypes.Paid)]
     public async Task CanAddAnItem(string name, string vendor, CatalogItemLicenceTypes license)
     {
-
-
-
         var itemToPost = new CatalogItemRequestModel
         {
             Name = name

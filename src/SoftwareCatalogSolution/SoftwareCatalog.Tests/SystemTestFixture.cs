@@ -4,7 +4,7 @@
 using Alba;
 
 namespace SoftwareCatalog.Tests.Catalog;
-public class CatalogSystemTestFixture : IAsyncLifetime
+public class SystemTestFixture : IAsyncLifetime
 {
     public IAlbaHost Host { get; set; } = null!;
     public async Task InitializeAsync()

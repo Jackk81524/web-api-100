@@ -1,0 +1,13 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+POST http://localhost:1337/vendors
+Content-Type: application/json
+{
+  "Name": "Alphabet",
+  "Url": "https://testing.com"
+}
+
+###
+
+GET http://localhost:1337/vendors/0194d7e1-f7ca-41b1-8f36-03103a512d97
+Content-Type: application/jsonGet
