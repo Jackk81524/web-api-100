@@ -1,29 +1,35 @@
 ﻿using FluentValidation;
 using Marten;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SoftwareCatalog.Api.Vendors.Endpoints;
-public class AddingAVendor(IDocumentSession session, IValidator<VendorCreateModel> validator) : ControllerBase
+public static class AddingAVendor
 {
-    [HttpPost("/vendors")]
-    public async Task<ActionResult> CanAddVendorAsync(
-        [FromBody] VendorCreateModel request)
+  
+    public static async Task<Results<Created<VendorDetailsResponseModel>, BadRequest>> CanAddVendorAsync(
+        [FromBody] VendorCreateModel request,
+        [FromServices] IValidator<VendorCreateModel> validator,
+        [FromServices] IDocumentSession session,
+        [FromServices] VendorSlugGenerator slugGenerator
+        )
     {
         var validations = await validator.ValidateAsync(request);
         if (!validations.IsValid)
         {
-            return BadRequest();
+            return TypedResults.BadRequest();
         }
         var entity = new VendorEntity
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
+            Slug = await slugGenerator.GenerateSlugFor(request.Name),
             Link = request.Link,
             CreatedOn = DateTimeOffset.UnixEpoch
         };
         session.Store(entity);
         await session.SaveChangesAsync();
         var response = entity.MapToModel();
-        return StatusCode(201, response);
+        return TypedResults.Created($"/vendors/{entity.Slug}", response);
     }
 }

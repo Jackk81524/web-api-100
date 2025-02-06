@@ -7,5 +7,7 @@ namespace SoftwareCatalog.Api.Vendors;
 public static partial class VendorMappers
 {
     public static partial IQueryable<VendorDetailsResponseModel> ProjectToModel(this IQueryable<VendorEntity> entity);
+
+    [MapProperty(nameof(VendorEntity.Slug), nameof(VendorDetailsResponseModel.Id))]
     public static partial VendorDetailsResponseModel MapToModel(this VendorEntity entity);
 }

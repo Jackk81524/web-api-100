@@ -16,7 +16,8 @@ builder.Services.AddSwaggerGen();
 // This is saying use the "System" time provider, anywhere we need an instance of the TimeProvider
 
 builder.Services.AddScoped<IValidator<CatalogItemRequestModel>, CatalogItemRequestModelValidator>();
-builder.Services.AddScoped<IValidator<VendorCreateModel>, VendorCreateModelValidator>();
+
+builder.Services.AddVendors();
 builder.Services.AddSingleton<TimeProvider>((_) => TimeProvider.System);
 
 var connectionString = builder.Configuration.GetConnectionString("database")
@@ -41,6 +42,8 @@ app.UseAuthorization();
 // Make Some Change
 app.MapControllers(); // this will scan your entire project for any controllers, use the attributes (HttpGet, etc.) to create
 // a "route table" - like a phone book. Reflection (the ability to have code look at itself)
+
+  app.MapVendors();
 app.Run(); // a blocking infinite for loop.
 
 // I will explain this later if you:

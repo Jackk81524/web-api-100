@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SoftwareCatalog.Api.Catalog.Endpoints;
 
+[Tags("Catalog")]
 public class GettingCatalogItemDetails : ControllerBase
 {
     [HttpGet("/catalog/{id:guid}")]

@@ -1,6 +1,8 @@
 ﻿using SoftwareCatalog.Api.Catalog;
 
 namespace SoftwareCatalog.Tests.Catalog;
+
+[Trait("Category", "System")]
 public class AddingAnItem(CatalogSystemTestFixture fixture) : IClassFixture<CatalogSystemTestFixture>
 {
 

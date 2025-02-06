@@ -1,6 +1,8 @@
 ﻿using FluentValidation.TestHelper;
 using SoftwareCatalog.Api.Vendors;
 namespace SoftwareCatalog.Tests.Vendors;
+
+[Trait("Category", "Unit")]
 public class VendorValidationTests
 {
     [Theory]
